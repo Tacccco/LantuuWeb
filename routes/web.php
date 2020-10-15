@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
+use resource;
 use Auth;
 
 /*
@@ -21,3 +22,5 @@ use Auth;
 Auth::routes();
 Route::get('/', [PageController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
+
+Route::resource('survey', SurveyController::class);
