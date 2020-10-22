@@ -24,3 +24,10 @@ Route::get('/', [HomepageController::class, 'index']);
 Route::get('/user', [UserDashboardController::class, 'index']);
 
 Route::resource('survey', SurveyController::class);
+
+Route::prefix('admin')->group(function() {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/', 'App\Http\Controllers\Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/', 'App\Http\Controllers\Auth\AdminLoginController@login')->name('admin.login.submit');
+}); 
+
