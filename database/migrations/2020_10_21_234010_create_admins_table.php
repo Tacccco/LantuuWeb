@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePictureIdentsTable extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreatePictureIdentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('picture_idents', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('pictureName');
+            $table->string('login')->unique();
+            $table->string('password')->unique();
+            $table->string('email');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreatePictureIdentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('picture_idents');
+        Schema::dropIfExists('admins');
     }
 }

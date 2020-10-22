@@ -49,13 +49,13 @@ class SurveyController extends Controller
             'interest' => 'required',
             'activity' => 'required',
             'selfExpectation' => 'required',
-            'voluteering' => 'required',
+            'volunteering' => 'required',
             'advantage' => 'required',
             'disadvantage' => 'required',
             'purpose' => 'required'
         ]);
 
-        $surv = new surveys_data;
+        $surv = new SurveyData;
 
         $surv->lastName = $request->input('lastName');
         $surv->firstName = $request->input('firstName');
@@ -75,7 +75,8 @@ class SurveyController extends Controller
         $surv->disadvantage = $request->input('disadvantage');
         $surv->purpose = $request->input('purpose');
         $surv->save();
-        
+
+        return view('survey.check_email');
     }
 
     /**

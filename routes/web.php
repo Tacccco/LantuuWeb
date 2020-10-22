@@ -20,7 +20,7 @@ use Auth;
 
 
 Auth::routes();
-Route::get('/', [PageController::class, 'index']);
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/', [HomepageController::class, 'index']);
+Route::get('/user', [UserDashboardController::class, 'index']);
 
 Route::resource('survey', SurveyController::class);

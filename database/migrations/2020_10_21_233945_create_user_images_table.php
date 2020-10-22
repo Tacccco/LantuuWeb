@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoginIcsTable extends Migration
+class CreateUserImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateLoginIcsTable extends Migration
      */
     public function up()
     {
-        Schema::create('login_ics', function (Blueprint $table) {
+        Schema::create('user_images', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('loginCode');
-            $table->string('password');
-            $table->string('roleCode');
+            $table->string('profileImage');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateLoginIcsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('login_ics');
+        Schema::dropIfExists('user_images');
     }
 }
