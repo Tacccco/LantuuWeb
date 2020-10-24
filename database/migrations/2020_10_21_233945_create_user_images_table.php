@@ -17,6 +17,12 @@ class CreateUserImagesTable extends Migration
             $table->increments('id');
             $table->string('profileImage');
             $table->timestamps();
+
+            $table->integer('userData_id')->unsigned()->index();
+        });
+
+        Schema::table('user_images', function(Blueprint $table) {
+            $table->foreign('userData_id')->references('id')->on('user_data')->onDelete('cascade');
         });
     }
 

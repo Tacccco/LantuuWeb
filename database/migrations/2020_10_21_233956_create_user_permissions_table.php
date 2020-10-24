@@ -17,6 +17,12 @@ class CreateUserPermissionsTable extends Migration
             $table->increments('id');
             $table->string('access');
             $table->timestamps();
+
+            $table->integer('user_id')->unsigned()->index();
+        });
+
+        Schema::table('user_permissions', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -24,6 +24,12 @@ class CreateUserDataTable extends Migration
             $table->text('occupation');
             $table->text('citizenship');
             $table->timestamps();
+
+            $table->integer('user_id')->unsigned()->index();
+        });
+
+        Schema::table('user_data', function(Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

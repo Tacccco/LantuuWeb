@@ -92,7 +92,7 @@
             </thead>
             <tbody>
             <tr>
-                <td rowspan="1" colspan="1">Dakota Hooper</td>
+                <td rowspan="1" colspan="1">{{ Auth::user() }}</td>
                 <td rowspan="1" colspan="1">Canada</td>
                 <td rowspan="1" colspan="1">Ottawa</td>
                 <td rowspan="1" colspan="1">Delivered</td>

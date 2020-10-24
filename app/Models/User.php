@@ -12,8 +12,12 @@ class User extends Model implements AuthenticatableContract
     use HasFactory;
     use Authenticatable;
 
-    public function userDataImg() {
-        return $this->hasOneThrough('UserImage', 'UserData', 'user_id', 'userData_id', 'id', 'id');
+    protected $hidden = [
+        'password',
+    ];
+
+    public function userData() {
+        return $this->hasOne('UserData', 'user_id');
     }
 
     public function userPermission() {
