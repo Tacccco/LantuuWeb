@@ -20,6 +20,7 @@ use Auth;
 
 
 Auth::routes();
+Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logoutShow');
 Route::get('/', [HomepageController::class, 'index']);
 Route::get('/user', [UserDashboardController::class, 'index']);
 
@@ -28,6 +29,7 @@ Route::resource('survey', SurveyController::class);
 Route::prefix('admin')->group(function() {
     Route::get('/', 'App\Http\Controllers\Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/', 'App\Http\Controllers\Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::get('/logout', 'App\Http\Controllers\Auth\AdminLoginController@logoutShow');
+    Route::post('/logout', 'App\Http\Controllers\Auth\AdminLoginController@logout')->name('admin.logout');  
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 }); 
-

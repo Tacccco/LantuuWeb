@@ -29,4 +29,20 @@ class AdminLoginController extends Controller
 
         return redirect()->back();
     }
+
+    public function logout(Request $request) {
+        Auth::guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
+    }
+
+    public function logoutShow() {
+        return redirect('/');
+    }
 } 
