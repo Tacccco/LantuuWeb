@@ -14,6 +14,6 @@ class UserData extends Model
     }
 
     public function user() {
-        return $this->belongsTo('User');
+        return $this->hasOne('User', 'userData_id');
     }
 }

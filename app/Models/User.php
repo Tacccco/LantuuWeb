@@ -17,7 +17,7 @@ class User extends Model implements AuthenticatableContract
     ];
 
     public function userData() {
-        return $this->hasOne('UserData', 'user_id');
+        return $this->belongsTo('UserData');
     }
 
     public function userPermission() {

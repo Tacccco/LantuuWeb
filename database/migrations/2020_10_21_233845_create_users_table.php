@@ -18,6 +18,12 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->timestamps();
+
+            $table->integer('userData_id')->unsigned()->index();
+        });
+
+        Schema::table('users', function(Blueprint $table) {
+            $table->foreign('userData_id')->references('id')->on('user_data')->onDelete('cascade');
         });
     }
 
