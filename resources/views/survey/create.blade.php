@@ -45,8 +45,8 @@
                 <input type="number" name="reserveNumber"  >
             <div>
             <div class="">
-                <label for="emailAddress">Цахим шуудангийн хаяг</label>
-                <input type="text" name="emailAddress"  >
+                <label for="email">Цахим шуудангийн хаяг</label>
+                <input type="text" name="email"  >
             <div>
             <div class="">
                 <label for="facebookAddress">Фейсбүүк хаяг \холбоосыг оруулна уу!\</label>

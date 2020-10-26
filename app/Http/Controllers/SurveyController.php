@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\surveys_data;
+use App\Models\SurveyData;
 
 class SurveyController extends Controller
 {
@@ -36,23 +36,23 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'lastName' => 'required',
-            'firstName' => 'required',
-            'age' => 'required',
-            'sex' => 'required',
-            'occupation' => 'required',
-            'citizenship' => 'required',
-            'phoneNumber' => 'required',
-            'reserveNumber' => 'required',
-            'emailAddress' => 'required',
-            'facebookAddress' => 'required',
-            'interest' => 'required',
-            'activity' => 'required',
-            'selfExpectation' => 'required',
-            'volunteering' => 'required',
-            'advantage' => 'required',
-            'disadvantage' => 'required',
-            'purpose' => 'required'
+            'lastName' => 'required|string',
+            'firstName' => 'required|string',
+            'age' => 'required|integer',
+            'sex' => 'required|string',
+            'occupation' => 'required|string',
+            'citizenship' => 'required|string',
+            'phoneNumber' => 'required|integer',
+            'reserveNumber' => 'required|integer',
+            'email' => 'required|string',
+            'facebookAddress' => 'required|string',
+            'interest' => 'required|string',
+            'activity' => 'required|string',
+            'selfExpectation' => 'required|string',
+            'volunteering' => 'required|string',
+            'advantage' => 'required|string',
+            'disadvantage' => 'required|string',
+            'purpose' => 'required|string'
         ]);
 
         $surv = new SurveyData;
@@ -65,7 +65,7 @@ class SurveyController extends Controller
         $surv->citizenship = $request->input('citizenship');
         $surv->phoneNumber = $request->input('phoneNumber');
         $surv->reserveNumber = $request->input('reserveNumber');
-        $surv->emailAddress = $request->input('emailAddress');
+        $surv->email = $request->input('email');
         $surv->facebookAddress = $request->input('facebookAddress');
         $surv->interest = $request->input('interest');
         $surv->activity = $request->input('activity');

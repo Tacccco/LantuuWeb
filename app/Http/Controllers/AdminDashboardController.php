@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\SurveyData;
 
 class AdminDashboardController extends Controller
 {
@@ -23,6 +24,7 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        return view('adminDashboard');
+        $surveyData = SurveyData::all();
+        return view('adminDashboard')->with('survey_data', $surveyData);
     }
 }
