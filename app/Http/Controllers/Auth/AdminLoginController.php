@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use Session;
 
 class AdminLoginController extends Controller
 {
@@ -13,7 +14,11 @@ class AdminLoginController extends Controller
     }
 
     public function showLoginForm() { 
-        return view('auth.adminLogin');
+        if (Session::has('auth')) {
+            return redirect(route('admin.dashboard'));
+        } else {
+            return view('auth.adminLogin');
+        }
     }
 
     public function login(Request $request) {
@@ -24,6 +29,8 @@ class AdminLoginController extends Controller
         ]);
 
         if (Auth::guard('admin')->attempt(['login' => $request->login, 'password' => $request->password])) {
+            Session::put('auth', $request->login);
+
             return redirect()->intended(route('admin.dashboard'));
         }
 
@@ -32,6 +39,8 @@ class AdminLoginController extends Controller
 
     public function logout(Request $request) {
         Auth::guard()->logout();
+
+        Session::forget('auth');
 
         $request->session()->invalidate();
 
