@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\SurveyData;
 use Illuminate\Support\Facades\Mail;
 
+use App\Mail\SurveyDataEditMail;
+
 class SurveyController extends Controller
 {
     /**
@@ -76,9 +78,12 @@ class SurveyController extends Controller
         $surv->disadvantage = $request->input('disadvantage');
         $surv->purpose = $request->input('purpose');
         $surv->save();
-        
+
         //Sending link through email to personal data page to edit and delete their data
-        Mail::to($surv->email)->send("Heey im new email");
+
+        $name = ucwords(strtolower($request->input('lastName')) . ' ' . strtolower($request->input('firstname')));
+
+        Mail::to($surv->email)->send(new SurveyDataEditMail($name));
 
         return view('survey.check_email');
     }

@@ -7,19 +7,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SurveyDataEdit extends Mailable
+class SurveyDataEditMail extends Mailable
 {
     use Queueable, SerializesModels;
     
-    public $data;
+    private $name;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($nameUser)
     {
-        //
+        $this->name = $nameUser;
     }
 
     /**
@@ -29,6 +29,6 @@ class SurveyDataEdit extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->subject('Лантуун Дохио')->view('email.survey_email')->with('name', 'Tomas');
     }
 }

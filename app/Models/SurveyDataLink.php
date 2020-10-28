@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SurveyData extends Model
+class SurveyDataLink extends Model
 {
     use HasFactory;
 
-    public function surveyLink() {
-        return $this->hasOne('SurveyDataLink', 'surveyData_id');
+    public function surveyData() {
+        return $this->belongsTo('SurveyData', 'surveyData_id');
     }
 }

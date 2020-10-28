@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\SurveyData;
+use App\Models\SurveyDataLink;
 
 class SurveyDataSeeder extends Seeder
 {
@@ -54,6 +55,12 @@ class SurveyDataSeeder extends Seeder
             'advantage' => 'dakjsfekajgdsh',
             'disadvantage' => 'dsfvsdkljsldkgja',
             'purpose' => 'dklasjddlksj',
+        ]);
+
+        SurveyDataLink::create([
+            'id' => 1,
+            'links' => 'dsk654es5af5465657w51631w5',
+            'surveyData_id' => 1,
         ]);
     }
 }

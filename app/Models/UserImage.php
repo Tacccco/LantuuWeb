@@ -9,11 +9,7 @@ class UserImage extends Model
 {
     use HasFactory;
 
-    public function user() {
-        return $this->belongsTo('User');
-    }
-
     public function userData() {
-        return $this->belongsTo('UserData');
+        return $this->belongsTo('UserData', 'userData_id');
     }
 }
