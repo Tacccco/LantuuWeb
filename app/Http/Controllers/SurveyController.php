@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SurveyData;
+use Illuminate\Support\Facades\Mail;
 
 class SurveyController extends Controller
 {
@@ -75,6 +76,9 @@ class SurveyController extends Controller
         $surv->disadvantage = $request->input('disadvantage');
         $surv->purpose = $request->input('purpose');
         $surv->save();
+        
+        //Sending link through email to personal data page to edit and delete their data
+        Mail::to($surv->email)->send("Heey im new email");
 
         return view('survey.check_email');
     }

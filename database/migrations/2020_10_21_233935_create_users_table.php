@@ -17,9 +17,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('email');
             $table->string('password');
-            $table->timestamps();
-
             $table->integer('userData_id')->unsigned()->index();
+            $table->timestamps();
         });
 
         Schema::table('users', function(Blueprint $table) {

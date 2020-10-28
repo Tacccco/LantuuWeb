@@ -16,9 +16,8 @@ class CreateUserImagesTable extends Migration
         Schema::create('user_images', function (Blueprint $table) {
             $table->increments('id');
             $table->string('profileImage');
-            $table->timestamps();
-
             $table->integer('userData_id')->unsigned()->index();
+            $table->timestamps();
         });
 
         Schema::table('user_images', function(Blueprint $table) {
