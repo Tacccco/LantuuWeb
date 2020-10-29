@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SurveyData;
 use Illuminate\Support\Facades\Mail;
 
+use App\Models\SurveyData;
+use App\Models\SurveyDataLink;
 use App\Mail\SurveyDataEditMail;
 
 class SurveyController extends Controller
@@ -29,6 +30,61 @@ class SurveyController extends Controller
     {
         return view('survey.create');
     }
+
+
+    /**
+     * Creates random string for an URL and passes to store function  
+     * 
+     * @return String 
+     */
+    private function randomURLCreator($length = 50) 
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        //Checking if there is an identical link in DB
+        $link = SurveyDataLink::where('links', $randomString)->first();
+        if ($link === NULL) {
+            return $randomString;
+        } else {
+            randomURLCreator();
+        }
+    }
+
+    /**
+     * Queries database to get email count. If new request email has twin this store in DB request will be canceled
+     * 
+     * @return Boolean
+     */
+    private function emailNumberCounterInDB(String $email) 
+    {
+        $userEmailFinding = SurveyData::where('email', $email)->get();
+        $emailCount = count($userEmailFinding);
+
+        if ($emailCount == 0) {
+            $flag = TRUE;
+        } else if ($emailCount > 0) {
+            $flag = FALSE;
+        }
+
+        return $flag;
+    }
+
+    /**
+     * Returns surveyData_id value
+     * 
+     * @return Integer
+     */
+    private function surveyIDFinder(String $email) {
+        $query = SurveyData::where('email', $email)->first();
+        $id = $query->id;
+        return $id;
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -58,37 +114,67 @@ class SurveyController extends Controller
             'purpose' => 'required|string'
         ]);
 
-        $surv = new SurveyData;
+        ///// Checking twin email
+        $flag = $this->emailNumberCounterInDB($request->input('email'));
 
-        $fName = ucfirst(strtolower($request->input('firstName')));
-        $lName = ucfirst(strtolower($request->input('lastName')));
+        if ($flag) {
 
-        $surv->lastName = $lName;
-        $surv->firstName = $fName;
-        $surv->age = $request->input('age');
-        $surv->sex = $request->input('sex');
-        $surv->occupation = $request->input('occupation');
-        $surv->citizenship = $request->input('citizenship');
-        $surv->phoneNumber = $request->input('phoneNumber');
-        $surv->reserveNumber = $request->input('reserveNumber');
-        $surv->email = $request->input('email');
-        $surv->facebookAddress = $request->input('facebookAddress');
-        $surv->interest = $request->input('interest');
-        $surv->activity = $request->input('activity');
-        $surv->selfExpectation = $request->input('selfExpectation');
-        $surv->volunteering = $request->input('volunteering');
-        $surv->advantage = $request->input('advantage');
-        $surv->disadvantage = $request->input('disadvantage');
-        $surv->purpose = $request->input('purpose');
-        $surv->save();
+            //Creating new instance of SurveyData model
+            $surv = new SurveyData;
 
-        //Sending link through email to personal data page to edit and delete their data
+            $fName = ucfirst(strtolower($request->input('firstName')));
+            $lName = ucfirst(strtolower($request->input('lastName')));
 
-        $name = $lName . ' ' . $fName;
+            $surv->lastName = $lName;
+            $surv->firstName = $fName;
+            $surv->age = $request->input('age');
+            $surv->sex = $request->input('sex');
+            $surv->occupation = $request->input('occupation');
+            $surv->citizenship = $request->input('citizenship');
+            $surv->phoneNumber = $request->input('phoneNumber');
+            $surv->reserveNumber = $request->input('reserveNumber');
+            $surv->email = $request->input('email');
+            $surv->facebookAddress = $request->input('facebookAddress');
+            $surv->interest = $request->input('interest');
+            $surv->activity = $request->input('activity');
+            $surv->selfExpectation = $request->input('selfExpectation');
+            $surv->volunteering = $request->input('volunteering');
+            $surv->advantage = $request->input('advantage');
+            $surv->disadvantage = $request->input('disadvantage');
+            $surv->purpose = $request->input('purpose');
+            $surv->save();
 
-        Mail::to($surv->email)->send(new SurveyDataEditMail($name));
+            //Creating new instance of SurveyDataLink model
+            $survLink = new SurveyDataLink;
 
-        return view('survey.check_email')->with('name', $name);
+            $survLink->links = $this->randomURLCreator();
+            $survLink->surveyData_id = $this->surveyIDFinder($request->input('email'));
+            $survLink->save();
+
+            //Sending link through email to personal data page to edit and delete their data
+            
+            $name = $lName . ' ' . $fName;
+
+            Mail::to($surv->email)->send(new SurveyDataEditMail($name));
+
+            //return view('survey.check_email')->with('name', $name);
+
+            $sendingData = array(
+                'lever' => 1,
+                'data' => $name,
+            );
+
+            return view('survey.check_email')->with('arrayData', $sendingData);
+
+        } else {
+
+            $sendingData = array(
+                'lever' => 0,
+                'data' => $request->input('email'),
+            );
+
+            return view('survey.check_email')->with('arrayData', $sendingData);    
+        }
     }
 
     /**
