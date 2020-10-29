@@ -60,8 +60,11 @@ class SurveyController extends Controller
 
         $surv = new SurveyData;
 
-        $surv->lastName = $request->input('lastName');
-        $surv->firstName = $request->input('firstName');
+        $fName = ucfirst(strtolower($request->input('firstName')));
+        $lName = ucfirst(strtolower($request->input('lastName')));
+
+        $surv->lastName = $lName;
+        $surv->firstName = $fName;
         $surv->age = $request->input('age');
         $surv->sex = $request->input('sex');
         $surv->occupation = $request->input('occupation');
@@ -81,11 +84,11 @@ class SurveyController extends Controller
 
         //Sending link through email to personal data page to edit and delete their data
 
-        $name = ucwords(strtolower($request->input('lastName')) . ' ' . strtolower($request->input('firstname')));
+        $name = $lName . ' ' . $fName;
 
         Mail::to($surv->email)->send(new SurveyDataEditMail($name));
 
-        return view('survey.check_email');
+        return view('survey.check_email')->with('name', $name);
     }
 
     /**

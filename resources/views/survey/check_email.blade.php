@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2>Check your email</h2>
+    <h2>Check your email {{ $name }}</h2>
 @endsection
