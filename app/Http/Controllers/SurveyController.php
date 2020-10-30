@@ -275,11 +275,14 @@ class SurveyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $addr
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($addr)
     {
-        //
+        $linkQuery = SurveyDataLink::where('links', $addr)->first();
+        $survey = $linkQuery->surveyData()->first();
+        $survey->delete();
+        return redirect('/');
     }
 }

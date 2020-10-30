@@ -62,5 +62,10 @@
         <textarea disabled>{{ $data->purpose }}</textarea>
     </div>
     <a href="/survey/{{$data->address}}/edit">Edit</a>
-    <a href=""">Delete</a>
+    
+    {!! Form::open(['action' => ['\App\Http\Controllers\SurveyController@destroy', $data->address], 'method' => 'POST']) !!}
+        @csrf
+        {!! Form::hidden('_method', 'DELETE') !!}
+        {!! Form::submit('Delete') !!}
+    {!! Form::close() !!}
 @endsection
