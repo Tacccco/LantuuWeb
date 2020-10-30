@@ -24,7 +24,7 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        $surveyData = SurveyData::all();
+        $surveyData = SurveyData::orderBy('created_at', 'desc')->paginate(10);
         return view('adminDashboard')->with('survey_data', $surveyData);
     }
 }

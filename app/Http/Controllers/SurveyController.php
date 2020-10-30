@@ -11,6 +11,10 @@ use App\Mail\SurveyDataEditMail;
 
 class SurveyController extends Controller
 {
+    public function __construct() {
+        $this->middleware('guest');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +41,7 @@ class SurveyController extends Controller
      * 
      * @return String 
      */
-    private function randomURLCreator($length = 50) 
+    private function randomURLCreator($length = 70) 
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -157,8 +161,6 @@ class SurveyController extends Controller
 
             Mail::to($surv->email)->send(new SurveyDataEditMail($name));
 
-            //return view('survey.check_email')->with('name', $name);
-
             $sendingData = array(
                 'lever' => 1,
                 'data' => $name,
@@ -180,12 +182,15 @@ class SurveyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $address
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($address)
     {
-        //
+        $linkQuery = SurveyDataLink::where('links', $address)->first();
+        $survey = $linkQuery->surveyData()->first();
+        $survey['address'] = $address;
+        return view('survey.show')->with('data', $survey);
     }
 
     /**
@@ -196,7 +201,7 @@ class SurveyController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**

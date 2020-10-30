@@ -10,6 +10,6 @@ class SurveyDataLink extends Model
     use HasFactory;
 
     public function surveyData() {
-        return $this->belongsTo('SurveyData', 'surveyData_id');
+        return $this->belongsTo('App\Models\SurveyData', 'surveyData_id');
     }
 }
