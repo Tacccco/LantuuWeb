@@ -17,9 +17,9 @@ class SurveyDataEditMail extends Mailable
      *
      * @return void
      */
-    public function __construct(String $nameUser)
+    public function __construct($url_Name)
     {
-        $this->name = $nameUser;
+        $this->name = $url_Name;
     }
 
     /**
@@ -29,10 +29,6 @@ class SurveyDataEditMail extends Mailable
      */
     public function build()
     {
-        if ($this->name) {
-            return $this->subject('Лантуун Дохио')->view('email.survey_email')->with('name', $this->name);
-        } else {
-            return redirect()->action('${App\Http\Controllers\HomepageController@index}');
-        }
+        return $this->subject('Лантуун Дохио')->view('email.survey_email')->with('data', $this->name);
     }
 }

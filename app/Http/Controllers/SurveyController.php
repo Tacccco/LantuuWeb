@@ -89,7 +89,6 @@ class SurveyController extends Controller
         return $id;
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -151,19 +150,22 @@ class SurveyController extends Controller
             //Creating new instance of SurveyDataLink model
             $survLink = new SurveyDataLink;
 
-            $survLink->links = $this->randomURLCreator();
+            $URL = $this->randomURLCreator();
+            $survLink->links = $URL; 
             $survLink->surveyData_id = $this->surveyIDFinder($request->input('email'));
             $survLink->save();
 
             //Sending link through email to personal data page to edit and delete their data
             
             $name = $lName . ' ' . $fName;
+            $mailData = $name . '+' . $URL; 
 
-            Mail::to($surv->email)->send(new SurveyDataEditMail($name));
+            Mail::to($surv->email)->send(new SurveyDataEditMail($mailData));
 
             $sendingData = array(
-                'lever' => 1,
+                'lever' => 1,               
                 'data' => $name,
+                'trigger' => 1,         //TO REVEAL DB INSERT SUCCESS MESSAGE  
             );
 
             return view('survey.check_email')->with('arrayData', $sendingData);
@@ -196,24 +198,78 @@ class SurveyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $address
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($address)
     {
-        
+        $linkQuery = SurveyDataLink::where('links', $address)->first();
+        $survey = $linkQuery->surveyData()->first();
+        $survey['address'] = $address;
+        return view('survey.edit')->with('data', $survey);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $addr
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $addr)
     {
-        //
+        $this->validate($request, [
+            'lastName' => 'required|string',
+            'firstName' => 'required|string',
+            'age' => 'required|integer',
+            'sex' => 'required|string',
+            'occupation' => 'required|string',
+            'citizenship' => 'required|string',
+            'phoneNumber' => 'required|integer',
+            'reserveNumber' => 'required|integer',
+            'facebookAddress' => 'required|string',
+            'interest' => 'required|string',
+            'activity' => 'required|string',
+            'selfExpectation' => 'required|string',
+            'volunteering' => 'required|string',
+            'advantage' => 'required|string',
+            'disadvantage' => 'required|string',
+            'purpose' => 'required|string'
+        ]);
+        
+        $dataLinkQuery = SurveyDataLink::where('links', $addr)->first();
+        $surv = $dataLinkQuery->surveyData()->first();
+
+        $fName = ucfirst(strtolower($request->input('firstName')));
+        $lName = ucfirst(strtolower($request->input('lastName')));
+
+        $surv->lastName = $lName;
+        $surv->firstName = $fName;
+        $surv->age = $request->input('age');
+        $surv->sex = $request->input('sex');
+        $surv->occupation = $request->input('occupation');
+        $surv->citizenship = $request->input('citizenship');
+        $surv->phoneNumber = $request->input('phoneNumber');
+        $surv->reserveNumber = $request->input('reserveNumber');
+        $surv->facebookAddress = $request->input('facebookAddress');
+        $surv->interest = $request->input('interest');
+        $surv->activity = $request->input('activity');
+        $surv->selfExpectation = $request->input('selfExpectation');
+        $surv->volunteering = $request->input('volunteering');
+        $surv->advantage = $request->input('advantage');
+        $surv->disadvantage = $request->input('disadvantage');
+        $surv->purpose = $request->input('purpose');
+        $surv->save();
+
+        $name = $lName . ' ' . $fName;
+
+        $sendingData = array(
+            'lever' => 1,
+            'data' => $name,
+            'trigger' => 0,         //TO REVEAL DB UPDATE SUCCESS MESSAGE
+        );
+
+        return view('survey.check_email')->with('arrayData', $sendingData);
     }
 
     /**
