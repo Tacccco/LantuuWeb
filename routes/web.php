@@ -31,5 +31,11 @@ Route::prefix('admin')->group(function() {
     Route::post('/', 'App\Http\Controllers\Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/logout', 'App\Http\Controllers\Auth\AdminLoginController@logoutShow');
     Route::post('/logout', 'App\Http\Controllers\Auth\AdminLoginController@logout')->name('admin.logout');  
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    Route::prefix('dashboard')->group(function() {
+        Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/survey/{id}', [AdminDashboardController::class, 'surveyApproval'])->name('admin.surveyShow');
+        Route::post('/survey/{id}', [AdminDashboardController::class, 'surveyRequest'])->name('admin.survey.submit');
+    });
+    
 }); 

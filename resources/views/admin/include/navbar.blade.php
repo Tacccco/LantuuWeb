@@ -1,3 +1,4 @@
+<?php use App\Models\Admin; ?>
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -17,7 +18,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        <?php if (Auth::check()) { echo Auth::user(); } ?>
+                        <?php if (Auth::check()) {  $aid = Auth::user()->id; $n = Admin::find($aid); echo strtoupper($n->login);  } else { return redirect('/'); } ?>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

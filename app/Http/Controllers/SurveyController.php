@@ -79,6 +79,21 @@ class SurveyController extends Controller
     }
 
     /**
+     * Checks the link to fb page, if not valid then adds http string front of value
+     * 
+     * @return String
+     */
+    private function fbLinkValidator($link) {
+        $http = 'http://';
+        if (preg_match("/{$http}/i", $link)) {
+            return $link;
+        } else {
+            $http .= $fbLink;
+            return $http;
+        }
+    }
+
+    /**
      * Returns surveyData_id value
      * 
      * @return Integer
@@ -137,7 +152,7 @@ class SurveyController extends Controller
             $surv->phoneNumber = $request->input('phoneNumber');
             $surv->reserveNumber = $request->input('reserveNumber');
             $surv->email = $request->input('email');
-            $surv->facebookAddress = $request->input('facebookAddress');
+            $surv->facebookAddress = fbLinkValidator($request->input('facebookAddress'));
             $surv->interest = $request->input('interest');
             $surv->activity = $request->input('activity');
             $surv->selfExpectation = $request->input('selfExpectation');
@@ -251,7 +266,7 @@ class SurveyController extends Controller
         $surv->citizenship = $request->input('citizenship');
         $surv->phoneNumber = $request->input('phoneNumber');
         $surv->reserveNumber = $request->input('reserveNumber');
-        $surv->facebookAddress = $request->input('facebookAddress');
+        $surv->facebookAddress = fbLinkValidator($request->input('facebookAddress'));
         $surv->interest = $request->input('interest');
         $surv->activity = $request->input('activity');
         $surv->selfExpectation = $request->input('selfExpectation');
