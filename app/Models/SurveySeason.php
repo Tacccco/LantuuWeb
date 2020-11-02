@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserLoginLink extends Model
+class SurveySeason extends Model
 {
     use HasFactory;
 
-    public function user() {
-        return $this->belongsTo('App\Models\User', 'user_id');
+    public function surveyDatas() {
+        return $this->hasMany('SurveyData', 'season_id');
     }
 }

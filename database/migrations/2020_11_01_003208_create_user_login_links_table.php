@@ -14,8 +14,14 @@ class CreateUserLoginLinksTable extends Migration
     public function up()
     {
         Schema::create('user_login_links', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('link');
+            $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
+        });
+
+        Schema::table('user_login_links', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

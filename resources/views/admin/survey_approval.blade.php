@@ -48,7 +48,7 @@
                 <input type="text" name="email" value="{{ $data->email }}" readonly/>
             </div>
             <div class="">
-                <a href="{{ $data->facebookAddress }}">Фейсбүүк холбоос</a>
+                <a target="_blank" href="{{ $data->facebookAddress }}">Фейсбүүк холбоос</a>
             </div>   
             <div class="">
                 <label for="interest">Сонирхол</label>

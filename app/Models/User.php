@@ -23,4 +23,8 @@ class User extends Model implements AuthenticatableContract
     public function userPermission() {
         return $this->hasOne('UserPermission', 'user_id');
     }
+
+    public function userLoginCreateLink() {
+        return $this->hasOne('UserLoginLink', 'user_id');
+    }
 }

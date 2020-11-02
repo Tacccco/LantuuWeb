@@ -12,4 +12,8 @@ class SurveyData extends Model
     public function surveyLink() {
         return $this->hasOne('SurveyDataLink', 'surveyData_id');
     }
+
+    public function season() {
+        return $this->belongsTo('SurveySeason', 'season_id');
+    }
 }

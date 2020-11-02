@@ -41,7 +41,7 @@ class SurveyController extends Controller
      * 
      * @return String 
      */
-    private function randomURLCreator($length = 70) 
+    private function randomURLCreator($length = 100) 
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -52,7 +52,7 @@ class SurveyController extends Controller
 
         //Checking if there is an identical link in DB
         $link = SurveyDataLink::where('links', $randomString)->first();
-        if ($link === NULL) {
+        if ($link === NULL || $link == '') {
             return $randomString;
         } else {
             randomURLCreator();
@@ -85,10 +85,11 @@ class SurveyController extends Controller
      */
     private function fbLinkValidator($link) {
         $http = 'http://';
-        if (preg_match("/{$http}/i", $link)) {
+        $link = strtolower($link);
+        if (strpos($link, $http) !== FALSE) {
             return $link;
         } else {
-            $http .= $fbLink;
+            $http .= $link;
             return $http;
         }
     }
@@ -152,7 +153,7 @@ class SurveyController extends Controller
             $surv->phoneNumber = $request->input('phoneNumber');
             $surv->reserveNumber = $request->input('reserveNumber');
             $surv->email = $request->input('email');
-            $surv->facebookAddress = fbLinkValidator($request->input('facebookAddress'));
+            $surv->facebookAddress = $this->fbLinkValidator($request->input('facebookAddress'));
             $surv->interest = $request->input('interest');
             $surv->activity = $request->input('activity');
             $surv->selfExpectation = $request->input('selfExpectation');
@@ -266,7 +267,7 @@ class SurveyController extends Controller
         $surv->citizenship = $request->input('citizenship');
         $surv->phoneNumber = $request->input('phoneNumber');
         $surv->reserveNumber = $request->input('reserveNumber');
-        $surv->facebookAddress = fbLinkValidator($request->input('facebookAddress'));
+        $surv->facebookAddress = $this->fbLinkValidator($request->input('facebookAddress'));
         $surv->interest = $request->input('interest');
         $surv->activity = $request->input('activity');
         $surv->selfExpectation = $request->input('selfExpectation');

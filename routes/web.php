@@ -24,6 +24,9 @@ Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logoutShow');
 Route::get('/', [HomepageController::class, 'index']);
 Route::get('/user', [UserDashboardController::class, 'index']);
 
+Route::get('/newuserwelcomingpage/{token}', [UserController::class, 'getConfirmAccount'])->name('user.confirmGet');
+Route::post('/newuserwelcomingpage/{token}', [UserController::class, 'postConfirmAccount'])->name('user.confirmPost');
+
 Route::resource('survey', SurveyController::class);
 
 Route::prefix('admin')->group(function() {
