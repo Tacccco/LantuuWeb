@@ -8,13 +8,18 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                        <?php $posts = Posts::all(); ?>
+                        <?php $num = count($posts) ?>
+                        @if ($num > 0)
+                            @foreach ($posts as $post)
+                                <div>
+                                    <h3> {{ $post->title }} </h3>
+                                    <p> {{ $post->post }} </p>
+                                </div>
+                            @endforeach
+                        @else 
+                            <div>Nothing to see here</div>
+                        @endif
                 </div>    
             </div>
         </div>

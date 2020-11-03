@@ -22,7 +22,12 @@ use Auth;
 Auth::routes();
 Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logoutShow');
 Route::get('/', [HomepageController::class, 'index']);
-Route::get('/user', [UserDashboardController::class, 'index']);
+
+Route::get('/dashboard', [UserDashboardController::class, 'index']);
+
+// User profile 
+Route::get('/profile', [UserProfilePageController::class, 'index'])->name('user.ownProfile');
+Route::get('/profile', [UserProfilePageController::class, 'show'])->name('user.othersProfile');
 
 Route::get('/newuserwelcomingpage/{token}', [UserController::class, 'getConfirmAccount'])->name('user.confirmGet');
 Route::post('/newuserwelcomingpage/{token}', [UserController::class, 'postConfirmAccount'])->name('user.confirmPost');
