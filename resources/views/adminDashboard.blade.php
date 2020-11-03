@@ -1,8 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <script src="{{ asset('js/dashboard.js') }}"></script>
     <main class="main">
         <header class="header">
         <section class="search">
@@ -171,3 +169,5 @@
         </div>
     </main>
 @endsection
+
+

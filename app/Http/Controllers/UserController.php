@@ -30,6 +30,8 @@ class UserController extends Controller
         $uData->password = bcrypt($request->password);
         $uData->save();
 
+        $ulink->delete();
+
         return redirect('/login');
     }
 }

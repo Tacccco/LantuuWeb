@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,14 +19,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     
 </head>
 <body>
-    <div id="app">
-        @include('admin.include.navbar')
-        <div class="container">
-            @yield('content')
-        </div>
+    @include('admin.include.navbar')
+    <div class="container">
+        @yield('content')
     </div>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
 </body>
 </html>
