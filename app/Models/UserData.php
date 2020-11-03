@@ -10,10 +10,10 @@ class UserData extends Model
     use HasFactory;
 
     public function userImg() {
-        return $this->hasOne('UserImage', 'userData_id');
+        return $this->hasOne('App\Models\UserImage', 'userData_id');
     }
 
     public function user() {
-        return $this->hasOne('User', 'userData_id');
+        return $this->hasOne('App\Models\User', 'userData_id');
     }
 }

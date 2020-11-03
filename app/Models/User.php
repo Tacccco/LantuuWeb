@@ -17,14 +17,19 @@ class User extends Model implements AuthenticatableContract
     ];
 
     public function userData() {
-        return $this->belongsTo('UserData', 'userData_id');
+        return $this->belongsTo('App\Models\UserData', 'userData_id');
     }
 
     public function userPermission() {
-        return $this->hasOne('UserPermission', 'user_id');
+        return $this->hasOne('App\Models\UserPermission', 'user_id');
     }
 
     public function userLoginCreateLink() {
-        return $this->hasOne('UserLoginLink', 'user_id');
+        return $this->hasOne('App\Models\UserLoginLink', 'user_id');
+    }
+
+    public function userPost()
+    {
+        return $this->hasMany('App\Models\Posts', 'user_id');
     }
 }

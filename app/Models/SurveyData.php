@@ -10,10 +10,10 @@ class SurveyData extends Model
     use HasFactory;
 
     public function surveyLink() {
-        return $this->hasOne('SurveyDataLink', 'surveyData_id');
+        return $this->hasOne('App\Models\SurveyDataLink', 'surveyData_id');
     }
 
     public function season() {
-        return $this->belongsTo('SurveySeason', 'season_id');
+        return $this->belongsTo('App\Models\SurveySeason', 'season_id');
     }
 }

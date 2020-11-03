@@ -10,6 +10,6 @@ class UserImage extends Model
     use HasFactory;
 
     public function userData() {
-        return $this->belongsTo('UserData', 'userData_id');
+        return $this->belongsTo('App\Models\UserData', 'userData_id');
     }
 }

@@ -10,6 +10,6 @@ class SurveySeason extends Model
     use HasFactory;
 
     public function surveyDatas() {
-        return $this->hasMany('SurveyData', 'season_id');
+        return $this->hasMany('App\Models\SurveyData', 'season_id');
     }
 }
