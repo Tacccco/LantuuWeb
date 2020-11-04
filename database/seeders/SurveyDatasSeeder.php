@@ -237,6 +237,5 @@ class SurveyDatasSeeder extends Seeder
             'disadvantage' => 'живэх магадлал өндөр',
             'purpose' => 'Олимпийн аварга бэлтгэх',
         ]);
-
     }
 }
