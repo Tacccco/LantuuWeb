@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     
 </head>
@@ -26,9 +26,9 @@
     @include('admin.include.navbar')
     @include('admin.include.sidebar')
     @include('admin.include.themeSelector');
-    <div class="container">
-        @yield('content')
-    </div>
+    
+    @yield('content')
+
     <script src="{{ asset('js/dashboard.js') }}"></script>
 </body>
 </html>

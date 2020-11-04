@@ -5,7 +5,7 @@
     {!! Form::open(['action' => ['\App\Http\Controllers\AdminDashboardController@surveyRequest', $data->id], 'method' => 'POST']) !!}
         @csrf
 
-        <div class="container">
+        <div class="main">
             <div class="">
                 <label for="lastName">Овог</label>
                 <input type="text" name="lastName" value="{{ $data->lastName }}" readonly/>

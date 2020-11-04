@@ -1,3 +1,4 @@
+<?php use App\Models\Posts; ?>
 @extends('layouts.app')
 
 @section('content')
