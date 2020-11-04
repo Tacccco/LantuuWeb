@@ -198,7 +198,7 @@ class SurveyDatasSeeder extends Seeder
             'purpose' => 'Хүн байх',
         ]);
         SurveyData::create([
-            'id' => 11,
+            'id' => 10,
             'lastName' => Str::random(10),
             'firstName' => Str::random(10),
             'age' => 19,
@@ -217,7 +217,26 @@ class SurveyDatasSeeder extends Seeder
             'disadvantage' => 'амьд байх магадлал багатай',
             'purpose' => 'Бүгдийг шатаах',
         ]);
-        
+        SurveyData::create([
+            'id' => 11,
+            'lastName' => Str::random(10),
+            'firstName' => Str::random(10),
+            'age' => 18,
+            'sex' => 'male',
+            'occupation' => 'сурагч',
+            'citizenship' => Str::random(10),
+            'phoneNumber' => '99080808',
+            'reserveNumber' => '12356678',
+            'email' => 'uiangam@yahoo.com',
+            'facebookAddress' => 'https://www.facebook.com/profile.php?id=100009969307872',
+            'interest' => 'сэлэх',
+            'activity' => 'сэлэх',
+            'selfExpectation' => 'сэлэх',
+            'volunteering' => 'сэлэх',
+            'advantage' => 'хаана ч сэлнэ',
+            'disadvantage' => 'живэх магадлал өндөр',
+            'purpose' => 'Олимпийн аварга бэлтгэх',
+        ]);
 
     }
 }
