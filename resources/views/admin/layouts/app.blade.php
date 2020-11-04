@@ -24,6 +24,8 @@
 </head>
 <body>
     @include('admin.include.navbar')
+    @include('admin.include.sidebar')
+    @include('admin.include.themeSelector');
     <div class="container">
         @yield('content')
     </div>
