@@ -29,8 +29,10 @@ Route::get('/dashboard', [UserDashboardController::class, 'index']);
 Route::get('/profile', [UserProfilePageController::class, 'index'])->name('user.ownProfile');
 Route::get('/profile/{user}', [UserProfilePageController::class, 'show'])->name('user.othersProfile');
 
-Route::get('/newuserwelcomingpage/{token}', [UserController::class, 'getConfirmAccount'])->name('user.confirmGet');
-Route::post('/newuserwelcomingpage/{token}', [UserController::class, 'postConfirmAccount'])->name('user.confirmPost');
+Route::get('/calendar', [CalendarController::class, 'index'])->name('user.calendar');
+
+Route::get('/newuserwelcomingpage/{token}', [UserController::class, 'getConfirmAccount'])->name('user.confirmGet');                             //New user password form
+Route::post('/newuserwelcomingpage/{token}', [UserController::class, 'postConfirmAccount'])->name('user.confirmPost');                          //New user password form
 
 Route::resource('survey', SurveyController::class);
 
