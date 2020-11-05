@@ -1,4 +1,3 @@
-<?php use App\Models\Posts; ?>
 @extends('layouts.app')
 
 @section('content')
@@ -9,7 +8,6 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                        <?php $posts = Posts::all(); ?>
                         <?php $num = count($posts) ?>
                         @if ($num > 0)
                             @foreach ($posts as $post)

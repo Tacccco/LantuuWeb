@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Posts;
 
 class UserDashboardController extends Controller
 {
@@ -24,6 +24,7 @@ class UserDashboardController extends Controller
      */
     public function index()
     {
-        return view('userDashboard');
+        $posts = Posts::all();
+        return view('userDashboard')->with('posts', $posts);
     }
 }

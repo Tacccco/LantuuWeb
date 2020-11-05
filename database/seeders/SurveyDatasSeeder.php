@@ -199,8 +199,8 @@ class SurveyDatasSeeder extends Seeder
         ]);
         SurveyData::create([
             'id' => 10,
-            'lastName' => Str::random(10),
-            'firstName' => Str::random(10),
+            'lastName' => 'Randomовог',
+            'firstName' => 'Нэрrandom',
             'age' => 19,
             'sex' => 'female',
             'occupation' => 'сурагч',
@@ -219,12 +219,12 @@ class SurveyDatasSeeder extends Seeder
         ]);
         SurveyData::create([
             'id' => 11,
-            'lastName' => Str::random(10),
-            'firstName' => Str::random(10),
+            'lastName' => 'Randomовог',
+            'firstName' => 'Нэрrandom',
             'age' => 18,
             'sex' => 'male',
             'occupation' => 'сурагч',
-            'citizenship' => Str::random(10),
+            'citizenship' => 'Сэлэнгэ',
             'phoneNumber' => '99080808',
             'reserveNumber' => '12356678',
             'email' => 'uiangam@yahoo.com',

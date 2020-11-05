@@ -18,7 +18,6 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     
 </head>

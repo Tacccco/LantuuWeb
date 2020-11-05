@@ -28,8 +28,11 @@ class User extends Model implements AuthenticatableContract
         return $this->hasOne('App\Models\UserLoginLink', 'user_id');
     }
 
-    public function userPost()
-    {
+    public function userPost() {
         return $this->hasMany('App\Models\Posts', 'user_id');
+    }
+
+    public function userTheme() {
+        return $this->hasOne('App\Models\User', 'user_id');
     }
 }
