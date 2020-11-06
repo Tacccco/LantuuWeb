@@ -1,13 +1,11 @@
-# JUST DO IT
-## CAUTION!!! MUST CONFIGURE ENV FILE TO USE MAILABLE CLASS FULLY FUNCTIONALLY
+Welcome to the lantuuTEAM repository. 
 
-## Setup
-To run this project
-
-```
-$ git clone repo_link
-$ run command "composer install"
-$ run command "php artisan migrate" /If not working, then use SUDO :3/
-$ run command "php artisan db:seed"
-$ run command "php artisan serve"
-```
+# Getting Started
+1. `git clone https://github.com/Tacccco/LantuuWeb.git`
+1. `cd lantuuWeb`
+1. `composer install`
+1. `cp .env.example .env`
+1. `php artisan key:generate`
+1. `php artisan migrate`
+1. `php artisan db:seed`
+1. `php artisan serve`
