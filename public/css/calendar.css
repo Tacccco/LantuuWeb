@@ -1,0 +1,72 @@
+table{
+    background-color: white;
+    height: auto;
+    width: auto;
+    text-align: center;
+    margin: auto;
+    border: solid black 1px;
+    border-spacing: 0px;
+}
+.month-back{
+    cursor: pointer;
+}
+.month-forward{
+    cursor: pointer;
+}
+.aa{
+    background-color: rgb(3, 56, 110);
+    color: white;
+    font-size: 3em;
+}
+.dd{
+    font-weight: 800;
+    font-size: 1.5em;
+}
+.ldiv{
+    display: block;
+    height: auto;
+    width: auto;
+    background-color: lightgray;
+    position: absolute;
+    visibility: visible;
+}
+tbody td{
+    border: solid lightgrey 1px;
+    height: 4em;
+    width: 5em;
+    padding: 0.2em;
+    vertical-align: top;
+    text-align: left;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+.selectable-day:hover{
+    background-color: rgb(3, 56, 110);
+    color: white;
+    cursor: pointer;
+}
+tbody td:first-child.selectable-day:hover{
+    color: white;
+    background-color: red;
+}
+td:first-child.selectable-day{
+    color: red;
+}
+td:first-child.active{
+    color: white;
+    background-color: tomato;
+}
+.dimmed{
+    color: lightgrey;
+}
+.active{
+    color: white;
+    background-color: rgb(3, 56, 110) ;
+}
+li{
+    display: none;
+    position: relative;
+}
+ul{
+    list-style: none;
+}

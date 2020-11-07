@@ -1,81 +1,100 @@
-let today = new Date();
-let currentMonth = today.getMonth();
-let currentYear = today.getFullYear();
-let selectYear = document.getElementById("year");
-let selectMonth = document.getElementById("month");
+"use strict";
+var DatePicker = function DatePicker(id, callback) {
+    this.id = id;
+    this.callback = callback;
+};
 
-let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+DatePicker.prototype.monthName = function monthName(monthIndex) {
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December'];
+    return monthNames[monthIndex];
+};
 
-let monthAndYear = document.getElementById("monthAndYear");
-showCalendar(currentMonth, currentYear);
+DatePicker.prototype.renderTable = function renderTable(monthName, year) {
 
+    document.getElementById(this.id).innerHTML = [
+        '<table>',
+        '<thead>',
+        '<tr class="aa">',
+        '<th class="month-back">&lt;</th>',
+        '<th colspan="5">', monthName.slice(0, 3), ' ', year, '</th>',
+        '<th class="month-forward">&gt;</th>',
+        '</tr>',
+        '<tr class="dd">',
+        '<td class="r">Su</td>',
+        '<td>Mo</td>',
+        '<td>Tu</td>',
+        '<td>We</td>',
+        '<td>Th</td>',
+        '<td>Fr</td>',
+        '<td>Sa</td>',
+        '</tr>',
+        '</thead>',
+        '<tbody>',
+        '</tbody>',
+        '</table>'
+    ].join('');
+};
 
-function next() {
-    currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
-    currentMonth = (currentMonth + 1) % 12;
-    showCalendar(currentMonth, currentYear);
-}
+DatePicker.prototype.render = function render(date) {
+    var month = date.getMonth() + 1,
+        day = date.getDate(),
+        year = date.getFullYear(),
+        monthIndex = date.getMonth(),
+        that = this,
+        tempDate = new Date(year, monthIndex, day),
+        tempDay = tempDate.getDate(),
+        calendarBody,
+        daysHtml = '',
+        i,
+        selectables,
+        selectableHandler;
 
-function previous() {
-    currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-    currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-    showCalendar(currentMonth, currentYear);
-}
+    this.callback(this.id, { month: month, day: day, year: year });
 
-function jump() {
-    currentYear = parseInt(selectYear.value);
-    currentMonth = parseInt(selectMonth.value);
-    showCalendar(currentMonth, currentYear);
-}
+    this.renderTable(this.monthName(monthIndex), year);
 
-function showCalendar(month, year) {
+    document.querySelector('#' + this.id + ' .month-back')
+        .addEventListener('click', function () {
+            that.render(new Date(year, monthIndex - 1));
+        });
+    document.querySelector('#' + this.id + ' .month-forward')
+        .addEventListener('click', function () {
+            that.render(new Date(year, monthIndex + 1));
+        });
 
-    let firstDay = (new Date(year, month)).getDay();
-    let daysInMonth = 32 - new Date(year, month, 32).getDate();
-
-    let tbl = document.getElementById("calendar-body"); // body of the calendar
-
-    // clearing all previous cells
-    tbl.innerHTML = "";
-
-    // filing data about month and in the page via DOM.
-    monthAndYear.innerHTML = months[month] + " " + year;
-    selectYear.value = year;
-    selectMonth.value = month;
-
-    // creating all cells
-    let date = 1;
-    for (let i = 0; i < 6; i++) {
-        // creates a table row
-        let row = document.createElement("tr");
-
-        //creating individual cells, filing them up with data.
-        for (let j = 0; j < 7; j++) {
-            if (i === 0 && j < firstDay) {
-                let cell = document.createElement("td");
-                let cellText = document.createTextNode("");
-                cell.appendChild(cellText);
-                row.appendChild(cell);
-            }
-            else if (date > daysInMonth) {
-                break;
-            }
-
-            else {
-                let cell = document.createElement("td");
-                let cellText = document.createTextNode(date);
-                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-                    cell.classList.add("bg-info");
-                } // color today's date
-                cell.appendChild(cellText);
-                row.appendChild(cell);
-                date++;
-            }
-
-
-        }
-
-        tbl.appendChild(row); // appending each row into calendar body.
+    tempDate.setDate(1);
+    if (tempDate.getDay() !== 0) {
+        tempDate.setDate(1 - tempDate.getDay());
     }
 
-}
+    calendarBody = document.querySelector('#' + this.id + ' tbody');
+    while (tempDate.getMonth() % 12 !== (monthIndex + 1) % 12) {
+        daysHtml += '<tr>';
+         for (i = 0; i < 7; i++) {
+            tempDay = tempDate.getDate();
+            if (tempDate.getMonth() !== monthIndex ) {
+                daysHtml += '<td class="dimmed">' + tempDay + '</td>';
+            } else if (tempDay === day) {
+                daysHtml += '<td class="active">' + tempDay + '</td>';
+            } else {
+                daysHtml += '<td class="selectable-day">' + tempDay + '</td>';
+            }
+            tempDate.setDate(tempDay + 1);
+        }
+        daysHtml += '</tr>';
+    }
+    calendarBody.innerHTML = daysHtml;
+    selectables = document.querySelectorAll('#' + this.id + ' .selectable-day');
+
+    selectableHandler = function selectableHandler(event) {
+        that.render(new Date(
+            year,
+            monthIndex,
+            event.target.textContent
+        ));
+    };
+    
+    for (i = 0; i < selectables.length; i++) {
+        selectables[i].addEventListener('click', selectableHandler);
+    }
+};
