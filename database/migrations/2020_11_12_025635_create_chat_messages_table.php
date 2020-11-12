@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserUIThemesTable extends Migration
+class CreateChatMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateUserUIThemesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_u_i_themes', function (Blueprint $table) {
+        Schema::create('chat_messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('theme');
+            $table->mediumText('message');
             $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
         });
 
-        Schema::table('user_u_i_themes', function(Blueprint $table) {
+        Schema::table('chat_messages', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -32,6 +32,6 @@ class CreateUserUIThemesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_u_i_themes');
+        Schema::dropIfExists('chat_messages');
     }
 }

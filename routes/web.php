@@ -32,6 +32,7 @@ Route::get('/profile/{user}', [UserProfilePageController::class, 'show'])->name(
 Route::get('/calendar', [CalendarController::class, 'index'])->name('user.calendar');
 
 Route::get('/lantuuChat', [ChatController::class, 'index'])->name('user.chat');
+Route::post('/lantuuChat', [ChatController::class, 'store'])->name('user.chatSend');
 
 Route::get('/newuserwelcomingpage/{token}', [UserController::class, 'getConfirmAccount'])->name('user.confirmGet');                             //New user password form
 Route::post('/newuserwelcomingpage/{token}', [UserController::class, 'postConfirmAccount'])->name('user.confirmPost');                          //New user password form

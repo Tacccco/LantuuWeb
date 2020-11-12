@@ -35,4 +35,8 @@ class User extends Model implements AuthenticatableContract
     public function userTheme() {
         return $this->hasOne('App\Models\User', 'user_id');
     }
+
+    public function chat() {
+        return $this->hasMany('App\Models\ChatMessages', 'user_id');
+    }
 }

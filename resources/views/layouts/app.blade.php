@@ -12,6 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script> window.laravel_echo_port='{{env("LARAVEL_ECHO_PORT")}}'; </script>
+    <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
