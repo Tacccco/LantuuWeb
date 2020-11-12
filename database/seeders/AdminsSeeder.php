@@ -7,6 +7,7 @@ use App\Models\Admin;
 
 class AdminsSeeder extends Seeder
 {
+    
     /**
      * Run the database seeds.
      *
