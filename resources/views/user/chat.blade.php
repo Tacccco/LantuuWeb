@@ -27,7 +27,7 @@
 
         function click() {
             ev.preventDefault()
-            window.Echo.channel('chat').listen('SendMessage', function (e) {
+            window.Echo.private('chat').listen('SendMessage', function (e) {
                 console.log(e.data.msg);
             });
         }
