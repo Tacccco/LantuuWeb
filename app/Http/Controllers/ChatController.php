@@ -15,6 +15,17 @@ class ChatController extends Controller
     }
 
     public function store(Request $request) {
-        return $request;
+        
+        $this->validate($request, [
+            'message' => 'required|string',
+        ]);
+
+        $msg = $request->input('message');
+
+        if (Auth::check()) {
+            Event::fire(new SendMessage($msg));
+        }
+
+        return 0;
     }
 }

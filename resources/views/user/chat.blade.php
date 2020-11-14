@@ -15,7 +15,6 @@
                         <div class="input-group">
                             <input type="text" name="message" class="form-control" placeholder="Type your message here...">
                             <input class="btn btn-primary" id="send" type="submit" value="Send">
-                            <button class="btn btn-primary" onclick="click()">Send</button>
                         </div>
                     {!! Form::close() !!}
                 @endif
@@ -25,12 +24,20 @@
     </div>
     <script>
 
-        function click() {
-            ev.preventDefault()
+        $("form").on("submit", function (event) {
+            event.preventDefault();
             window.Echo.private('chat').listen('SendMessage', function (e) {
                 console.log(e.data.msg);
             });
-        }
+        }); 
+
+
+        //function click() {
+          //  ev.preventDefault()
+            //window.Echo.private('chat').listen('SendMessage', function (e) {
+              //  console.log(e.data.msg);
+            //});
+        //}
 
     </script>
 @endsection
