@@ -30,8 +30,7 @@
                 console.log(e.data.msg);
             });
         }); 
-
-
+        
         //function click() {
           //  ev.preventDefault()
             //window.Echo.private('chat').listen('SendMessage', function (e) {

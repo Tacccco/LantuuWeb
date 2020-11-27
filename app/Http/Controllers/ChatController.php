@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Events\SendMessage;
+use Event;
 
 class ChatController extends Controller
 {
@@ -23,9 +26,9 @@ class ChatController extends Controller
         $msg = $request->input('message');
 
         if (Auth::check()) {
-            Event::fire(new SendMessage($msg));
+            Event::dispatch(new SendMessage($msg));
         }
 
-        return 0;
+        return $msg;
     }
 }
