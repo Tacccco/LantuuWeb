@@ -10,7 +10,6 @@
 		}
 	},
 	"devMode": true,
-	"host": null,
 	"port": "6001",
 	"protocol": "http",
 	"socketio": {},

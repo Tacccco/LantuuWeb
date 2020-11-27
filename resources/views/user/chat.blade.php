@@ -25,8 +25,8 @@
     <script>
 
         $("form").on("submit", function (event) {
-            event.preventDefault();
-            window.Echo.private('chat').listen('SendMessage', function (e) {
+            //event.preventDefault();
+            window.Echo.channel('chat').listen('SendMessage', function (e) {
                 console.log(e.data.msg);
             });
         }); 

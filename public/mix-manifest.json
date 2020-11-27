@@ -1,5 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/js/laravel-echo.js": "/js/laravel-echo.js"
+    "/js/laravel-echo.js": "/js/laravel-echo.js",
+    "/js/socket.io.js": "/js/socket.io.js",
+    "/js/socket.io-client.js": "/js/socket.io-client.js"
 }

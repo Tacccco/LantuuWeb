@@ -13,6 +13,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/bootstrap.js') }}" defer></script>
     <script src="{{ asset('js/laravel-echo.js') }}" defer></script>
+    <script src="//localhost:6001/socket.io/socket.io.js"></script>
     <script> window.laravel_echo_port='{{env("LARAVEL_ECHO_PORT")}}'; </script>
 
     <!-- Fonts -->

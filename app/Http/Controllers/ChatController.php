@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Events\SendMessage;
 use Event;
+use App\Models\ChatMessages;
 
 class ChatController extends Controller
 {
@@ -26,8 +27,15 @@ class ChatController extends Controller
         $msg = $request->input('message');
 
         if (Auth::check()) {
-            Event::dispatch(new SendMessage($msg));
+            //Event::dispatch(new SendMessage($msg));
+            broadcast(new SendMessage($msg))->toOthers();
         }
+
+        $db = new ChatMessages;
+
+        $db->message = $msg;
+        $db->user_id = Auth::user()->id;
+        $db->save();
 
         return $msg;
     }
